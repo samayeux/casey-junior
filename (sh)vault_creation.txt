@@ -1,4 +1,4 @@
-#prompts user for info and creates ansible vault
+#creates ansible vault with user-provided responses
 #! /bin/bash 
 #Get info
 echo "What is your alias?"
