@@ -1,4 +1,5 @@
---- #old java cleanup
+--- 
+#playbook to remove old java versions and install java 11
 - hosts: '{{ hosts }}'
   become: yes
   tasks:
