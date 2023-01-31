@@ -1,0 +1,40 @@
+#prompts user for info and creates ansible vault
+#! /bin/bash 
+#Get info
+echo "What is your alias?"
+read name
+echo "What is your sudo password?"
+read -s pass
+echo "What is the environment (mnz21 or sn8)?"
+read env
+echo "What is the enclave? (low, grey, rx, or gmon)?"
+read enc
+#append info to file
+echo "ansible_ssh_pass: '$pass'" >> /home/$name/$name-testvault.yml
+echo "ad_pass: '$pass'" >> /home/$name/$name-testvault.yml
+echo "sudo_pass: '$pass'" >> /home/$name/$name-testvault.yml
+echo "ad_user: '$name'" >> /home/$name/$name-testvault.yml
+echo "ansible_user_id: '$name'" >> /home/$name/$name-testvault.yml
+echo "network_name: $env" >> /home/$name/$name-testvault.yml
+echo "site_prefix: $enc" >> /home/$name/$name-testvault.yml
+#create vault
+ansible-vault encrypt "/home/$name/$name-testvault.yml"
+#closing
+echo "$name-testvault.yml created! Use "ansible-playbook <playbook.yml> --ask-vault-pass -e @<vault.yml> --become" to run a playbook using it."
+echo "Do you want to [V]iew, [E]dit, or [Q]uit?"
+read choice
+if [ "$choice" == "V" ]; then
+ansible-vault view /home/$name/$name-testvault.yml
+elif [ "$choice" == "v" ]; then
+ansible-vault view /home/$name/$name-testvault.yml
+elif [ "$choice" == "E" ]; then
+ansible-vault edit /home/$name/$name-testvault.yml
+elif [ "$choice" == "e" ]; then
+ansible-vault edit /home/$name/$name-testvault.yml
+elif [ "$choice" == "Q" ]; then
+exit 0
+elif [ "$choice" == "q" ]; then
+exit 0
+else echo "Invalid option"
+exit 0
+fi

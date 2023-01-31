@@ -1,0 +1,23 @@
+--- #old java cleanup
+- hosts: '{{ hosts }}'
+  become: yes
+  tasks:
+    - name: cleanup any previous transactions
+      command: yum-complete-transaction
+    - name: yum clean
+      command: yum clean all
+    - name: make cache
+      command: yum makecache
+    - name: remove older java versions 1.7 and 1.8
+      yum:
+        name:
+          - java-1.7.0-openjdk-1.7.0.261-2.6.22.2.el7_8.x86_64
+          - java-1.7.0-openjdk-headless-1.7.0.261-2.6.22.2.el7_8.x86_64
+          - java-1.8.0-openjdk-headless-1.8.0.342.b07-1.el7_9.x86_64
+          - java-1.8.0-openjdk-1.8.0.342.b07-1.el7_9.x86_64
+        state: absent
+    - name: install java 11
+      yum:
+        name:
+          - java-11-openjdk.x86_64
+        state: latest

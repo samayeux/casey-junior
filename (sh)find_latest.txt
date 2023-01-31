@@ -1,0 +1,17 @@
+#!/bin/bash
+dir1="/var/log/"
+most_recent1=$(find $dir1 -type f ! -name "messages" ! -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+dir2="/var/log/"
+most_recent2=$(find $dir1 -type f ! -name "messages" ! -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+dir3="/var/log/"
+most_recent3=$(find $dir1 -type f ! -name "messages" ! -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+dir4="/var/log/"
+most_recent4=$(find $dir1 -type f ! -name "messages" ! -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+dir5="/var/log/"
+most_recent5=$(find $dir1 -type f ! -name "messages" ! -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+echo " last files RECIEVED"
+ls -ll $most_recent1
+ls -ll $most_recent2
+ls -ll $most_recent3
+ls -ll $most_recent4
+ls -ll $most_recent5
